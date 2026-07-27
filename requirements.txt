@@ -3,5 +3,8 @@ numpy
 seaborn
 matplotlib
 scikit-learn
+catboost
+xgboost
+Randomforest
 dill
 -e .

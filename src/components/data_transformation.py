@@ -116,7 +116,21 @@ class DataTransformation:
 
 
 if __name__ == "__main__":
-    logging.info("Running data transformation module as a script.")
-    raise RuntimeError(
-        "DataTransformation is intended to be used as a module. Call initiate_data_transformation() from your training pipeline."
-    )
+    obj = DataIngestion()
+    train_path, test_path = obj.initiate_data_ingestion()
+    print("Train File :", train_path)
+    print("Test File  :", test_path)
+
+    # Data Transformation
+    print("\n--- Starting Data Transformation ---")
+    data_transformation = DataTransformation()
+    train_arr, test_arr, preprocessor_path = data_transformation.initiate_data_transformation(train_path, test_path)
+    print("Data Transformation completed!")
+    print("Preprocessor saved at:", preprocessor_path)
+
+    # Model Training
+    print("\n--- Starting Model Training ---")
+    model_trainer = ModelTrainer()
+    r2_score = model_trainer.initiate_model_trainer(train_arr, test_arr, preprocessor_path)
+    print(f"Model R² Score: {r2_score}")
+    print("Model Training completed!")
